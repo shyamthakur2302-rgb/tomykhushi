@@ -113,10 +113,16 @@
   </div>
 </div>
 
+<!-- Romantic Music -->
+<audio id="bgMusic" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
 <script>
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.getElementById("yesBtn");
   const popup = document.getElementById("popup");
+  const bgMusic = document.getElementById("bgMusic");
 
   let noClicks = 0;
 
@@ -132,13 +138,14 @@
 
   function showPopup() {
     popup.style.display = "flex";
+    bgMusic.play();       // 🎵 MUSIC STARTS
     startCelebration();
   }
 
   function startCelebration() {
     const emojis = ["🎉","🎊","💋","❤️","💖","😍","🥰"];
 
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 90; i++) {
       const e = document.createElement("div");
       e.className = "emoji";
       e.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
@@ -158,3 +165,4 @@
 
 </body>
 </html>
+
