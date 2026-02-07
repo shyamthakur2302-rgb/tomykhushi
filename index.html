@@ -9,7 +9,7 @@
   body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,11 +20,10 @@
   .box {
     background: rgba(255,255,255,0.15);
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 25px;
     text-align: center;
     color: #fff;
     backdrop-filter: blur(10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
   }
 
   h1 {
@@ -33,23 +32,21 @@
   }
 
   button {
-    padding: 14px 28px;
+    padding: 14px 30px;
     font-size: 18px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    transition: 0.3s;
   }
 
   #yesBtn {
-    background: #ff4d6d;
+    background: #ff2f68;
     color: white;
-    margin-right: 20px;
   }
 
   #noBtn {
     background: white;
-    color: #ff4d6d;
+    color: #ff2f68;
     position: absolute;
   }
 
@@ -57,26 +54,40 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.7);
     justify-content: center;
     align-items: center;
+    z-index: 10;
   }
 
   .popup-content {
     background: white;
-    padding: 30px;
-    border-radius: 20px;
+    padding: 35px;
+    border-radius: 25px;
     text-align: center;
     animation: pop 0.5s ease;
   }
 
   @keyframes pop {
-    from { transform: scale(0.6); opacity: 0; }
+    from { transform: scale(0.5); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
   }
 
   .popup-content h2 {
-    color: #ff4d6d;
+    color: #ff2f68;
+    font-size: 28px;
+  }
+
+  .emoji {
+    position: absolute;
+    font-size: 26px;
+    animation: fly 4s linear forwards;
+    z-index: 20;
+  }
+
+  @keyframes fly {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-300px); opacity: 0; }
   }
 </style>
 </head>
@@ -92,8 +103,13 @@
 
 <div class="popup" id="popup">
   <div class="popup-content">
-    <h2>YEAHHHH! 🎉💖</h2>
-    <p>Congrats 🥰<br><strong>Khushi & Shyam</strong><br>are now officially together 💍✨</p>
+    <h2>YEAHHHH 🎉💖</h2>
+    <p>
+      Congrats 🥰<br>
+      <strong>Khushi & Shyam</strong><br>
+      are now officially together 💍✨<br><br>
+      ❤️ I LOVE YOU ❤️
+    </p>
   </div>
 </div>
 
@@ -106,25 +122,37 @@
 
   function moveNoButton() {
     noClicks++;
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 50);
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
+    noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - 50) + "px";
 
     if (noClicks >= 3) {
-      setTimeout(() => {
-        showPopup();
-      }, 500);
+      setTimeout(showPopup, 500);
     }
   }
 
   function showPopup() {
     popup.style.display = "flex";
+    startCelebration();
+  }
+
+  function startCelebration() {
+    const emojis = ["🎉","🎊","💋","❤️","💖","😍","🥰"];
+
+    for (let i = 0; i < 80; i++) {
+      const e = document.createElement("div");
+      e.className = "emoji";
+      e.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+      e.style.left = Math.random() * 100 + "vw";
+      e.style.bottom = "0px";
+      e.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.body.appendChild(e);
+
+      setTimeout(() => e.remove(), 5000);
+    }
   }
 
   noBtn.addEventListener("mouseover", moveNoButton);
   noBtn.addEventListener("click", moveNoButton);
-
   yesBtn.addEventListener("click", showPopup);
 </script>
 
